@@ -3,7 +3,7 @@ settings():
     imgui.scale = 1.3
 
     # If `true`, automatically show the picker GUI when the file manager has focus
-    user.file_manager_auto_show_pickers = false
+    user.file_manager_auto_show_pickers = true
 
     # Set the number of command lines to display per help page
     user.help_max_command_lines_per_page = 50
@@ -12,7 +12,7 @@ settings():
     user.help_max_contexts_per_page = 20
 
     # Set the scroll amount for continuous scroll/gaze scroll
-    user.mouse_continuous_scroll_amount = 80
+    user.mouse_continuous_scroll_amount = 180
 
     # If `true`, stop continuous scroll/gaze scroll with a pop
     user.mouse_enable_pop_stops_scroll = true
@@ -21,7 +21,7 @@ settings():
     # 0 = off
     # 1 = on with eyetracker but not zoom mouse mode
     # 2 = on but not with zoom mouse mode
-    user.mouse_enable_pop_click = 1
+    user.mouse_enable_pop_click = 0
 
     # If `true`, use a hissing noise to scroll continuously
     user.mouse_enable_hiss_scroll = false
@@ -30,13 +30,13 @@ settings():
     user.mouse_hide_mouse_gui = false
 
     # If `true`, hide the cursor when enabling zoom mouse
-    user.mouse_wake_hides_cursor = false
+    user.mouse_wake_hides_cursor = true
 
     # Set the amount to scroll up/down
     user.mouse_wheel_down_amount = 120
 
     # Set the amount to scroll left/right
-    user.mouse_wheel_horizontal_amount = 40
+    user.mouse_wheel_horizontal_amount = 80
 
     # If `true`, start mouse grid numbering on the bottom left (vs. top left)
     user.grids_put_one_bottom_left = true
@@ -53,13 +53,13 @@ settings():
 
     # Uncomment to insert text longer than 10 characters (customizable) by pasting from
     # the clipboard. This is often faster than typing.
-    # user.paste_to_insert_threshold = 10
+     user.paste_to_insert_threshold = 10
 
     # Uncomment to enable context-sensitive dictation. This determines how to format
     # (capitalize, space) dictation-mode speech by selecting & copying surrounding text
     # before inserting. This can be slow and may not work in some applications. You may
     # wish to enable this on a per-application basis.
-    # user.context_sensitive_dictation = true
+    user.context_sensitive_dictation = true
 
     # Choose how to resize windows moved across physical screens (eg. via `snap next`).
     # Default is 'proportional', which preserves window size : screen size ratio.
