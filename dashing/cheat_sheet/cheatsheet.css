@@ -1,0 +1,56 @@
+body {
+    column-count: 1
+
+}
+
+br {
+    break-before: page;
+    page-break-before: always;
+    break-after: page;
+}
+
+ul {
+    margin: 0 0 0 0;
+    padding: 0 0 0 0
+}
+
+pre {
+    overflow: hidden
+}
+
+p {
+    display: flex;
+    border: solid black;
+    margin: 0 0 0 0
+
+}
+
+blockquote {
+    padding: 0 0 0 0;
+    margin: unset
+}
+
+p > * {
+    flex: 1;
+    /*! margin: 0 0 0 0; */
+    align-content: normal;
+}
+
+li {
+    list-style: none
+
+}
+
+li > p {
+    border: none;
+    overflow: hidden;
+    display: block
+
+}
+
+p:nth-child(2n) {
+    background-color: lightgrey
+
+}
+
+
