@@ -82,7 +82,7 @@ def send_idea_command(cmd):
     active_app = ui.active_app()
     bundle = active_app.bundle or active_app.name
     port = port_mapping.get(bundle, None)
-    nonce = _get_nonce(port, ".vcidea_") or _get_nonce(port, "vcidea_")
+    nonce = _get_nonce(port, "vcidea_") or _get_nonce(port, ".vcidea_")
     proxies = {"http": None, "https": None}
     print(f"sending {bundle} {port} {nonce}")
     if port and nonce:
