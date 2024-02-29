@@ -3,50 +3,8 @@ body {
 }
 
 
-
-br {
-    break-before: page;
-    page-break-before: always;
-    break-after: page;
-}
-
-ul {
-    margin: 0 0 0 0;
-    padding: 0 0 0 0
-}
-
-pre {
-    overflow: hidden
-}
-
-p {
-    display: flex;
-    border: solid black;
-    margin: 0 0 0 0
-
-}
-
-blockquote {
-    padding: 0 0 0 0;
-    margin: unset
-}
-
-p > * {
-    flex: 1;
-    /*! margin: 0 0 0 0; */
-    align-content: normal;
-}
-
-li {
-    list-style: none
-
-}
-
-li > p {
-    border: none;
-    overflow: hidden;
-    display: block print cheatsheet
-
+tr.context:nth-child(2n+1) {
+    background-color: #F2F2F2;
 }
 
 tr.context:nth-child(2n) {
@@ -77,7 +35,7 @@ th {
 }
 
 table.contexts th {
-    border: 1px solid black;Prince cheatsheet
+    border: 1px solid black;
 
     text-align: left;
     background-color: darkgreen;

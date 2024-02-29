@@ -14,7 +14,12 @@ def user_list_to_html_table(file, list_name):
     global lines_written
 
     command_list = registry.lists[list_name][0].items()
+
+    #sort the commands by the rule
+    command_list = sorted(command_list)
+
     write_page_break_if_needed(file, len(command_list))
+
     commandGroup = list_name.replace('user.', '').upper()
     #If the last character of Command Group does not equal s. Then add the character S.
     if commandGroup[-1] != "S":
@@ -23,47 +28,20 @@ def user_list_to_html_table(file, list_name):
     # convert this to a two column table
     file.write("<table>\n")
     file.write("<tr><th>Input</th><th>Result</th></tr>\n")
+    rowCount = 0
+    rows_written=0
     for key, value in command_list:
+        rowCount += 1
+        rows_written += 1
+        lines_written += 1
+        if ((rowCount > 4 and key[:2] != previousRule[:2]) and not rows_written==len(command_list)):
+            file.write("<tr class=blank><td>&nbsp;</td><td></td></tr>\n")
+            rowCount = 0
+        previousRule = key
         file.write(f"<tr class=context><td>{key}</td><td>{value}</td></tr>\n")
     file.write("</table>\n\n")
 
     file.write("\n\n")
-
-
-def write_alphabet(file):
-    user_list_to_html_table(file, 'user.letter')
-
-
-def write_numbers(file):
-    user_list_to_html_table(file, 'user.number_key')
-
-
-def write_modifiers(file):
-    user_list_to_html_table(file, 'user.modifier_key')
-
-
-def write_special(file):
-    user_list_to_html_table(file, 'user.special_key')
-
-
-def write_symbol(file):
-    user_list_to_html_table(file, 'user.symbol_key')
-
-
-def write_arrow(file):
-    user_list_to_html_table(file, 'user.arrow_key')
-
-
-def write_punctuation(file):
-    user_list_to_html_table(file, 'user.punctuation')
-
-
-def write_function(file):
-    user_list_to_html_table(file, 'user.function_key')
-
-
-def write_formatters(file):
-    user_list_to_html_table(file, 'user.formatters')
 
 
 
@@ -84,9 +62,10 @@ def write_context_commands(key, file, commands):
 
     previousRule= ""
     rowCount = 0
-
+    rows_written=0
     for key in commands:
         rowCount += 1
+        rows_written += 1
         try:
             rule = commands[key].rule.rule
             implementation = commands[key].target.code.replace("\n", "\n<br/>")
@@ -95,18 +74,13 @@ def write_context_commands(key, file, commands):
 
         ruleHtmlEscaped = escapeHtml(rule)
 
-        #        #.replace('/n', '<br>')
 
         #emove any text following a hash # symbol if the length > 20 chqars
         if len(implementation) > 20:
           implementation = implementation.split('#')[0]
         result = escapeHtml(implementation)
 
-        #if the rowCount is greater than 5 and the first 2 characters of the rule are the same as the first 2 characters of the previous rule
-        #then add a blank row
-        # if ((rowCount > 5 and rule[:2] != previousRule[:2]) or (rowCount > 7 and rule[:rowCount] != previousRule[:rowCount])):
-        if ((rowCount > 5 and rule[:rowCount] != previousRule[:rowCount])):
-
+        if ((rowCount > 4 and rule[:rowCount] != previousRule[:rowCount]) and not rows_written==len(commands)):
             file.write("<tr class=blank><td>&nbsp;</td><td></td></tr>\n")
             rowCount = 0
         previousRule = rule
@@ -153,7 +127,7 @@ def pretty_print_context_name(file, name):
 def write_page_break_if_needed(file, size_of_next_list):
     global lines_written
     if lines_written+size_of_next_list > 40:
-        file.write('<p style="page-break-after: always;"><hr/></p>')
+        file.write('<p style="page-break-after: always;"/>')
         lines_written = 0
 
 
@@ -206,6 +180,9 @@ class user_actions:
         write_punctuation(file)
         write_symbol(file)
 
+
+        file.write('<p style="page-break-after: always;"/>')
+        lines_written = 0
         # print out all the commands in all of the contexts
 
         list_of_contexts = dict(registry.contexts.items())
@@ -221,3 +198,41 @@ class user_actions:
         file.write(f"<h1 align=center>End of Talon Cheat Sheet</h1>\n\n")
         file.write("</body></html>")
         file.close()
+
+
+
+def write_alphabet(file):
+    user_list_to_html_table(file, 'user.letter')
+
+
+def write_numbers(file):
+    user_list_to_html_table(file, 'user.number_key')
+
+
+def write_modifiers(file):
+    user_list_to_html_table(file, 'user.modifier_key')
+
+
+def write_special(file):
+    user_list_to_html_table(file, 'user.special_key')
+
+
+def write_symbol(file):
+    user_list_to_html_table(file, 'user.symbol_key')
+
+
+def write_arrow(file):
+    user_list_to_html_table(file, 'user.arrow_key')
+
+
+def write_punctuation(file):
+    user_list_to_html_table(file, 'user.punctuation')
+
+
+def write_function(file):
+    user_list_to_html_table(file, 'user.function_key')
+
+
+def write_formatters(file):
+    user_list_to_html_table(file, 'user.formatters')
+
