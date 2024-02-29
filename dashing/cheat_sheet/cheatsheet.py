@@ -1,100 +1,122 @@
+import logging
 import os
+from datetime import datetime
 
 from talon import Module, actions, registry
 
-global linecount
-linecount = 0
-
-
-def list_to_markdown_table(file, list_name):
-    list_to_html_table(file, list_name)
+global lines_written
+lines_written = 0
 
 
 
 # repeat the above but in html format
-def list_to_html_table(file, list_name):
-    file.write(f"<h1>yo {list_name} </h1>\n\n")
+def user_list_to_html_table(file, list_name):
+    global lines_written
+
     command_list = registry.lists[list_name][0].items()
-
-    file.write("<h2>command word  {list_name}</h2> \n\n")
-
+    write_page_break_if_needed(file, len(command_list))
+    commandGroup = list_name.replace('user.', '').upper()
+    #If the last character of Command Group does not equal s. Then add the character S.
+    if commandGroup[-1] != "S":
+        commandGroup = commandGroup + "S"
+    file.write(f"<h1>{commandGroup}</h1>\n\n")
     # convert this to a two column table
     file.write("<table>\n")
-    file.write("<tr><th>command</th><th>word</th></tr>\n")
+    file.write("<tr><th>Input</th><th>Result</th></tr>\n")
     for key, value in command_list:
-        file.write(f"<tr><td>{key}</td><td>{value}</td></tr>\n")
+        file.write(f"<tr class=context><td>{key}</td><td>{value}</td></tr>\n")
     file.write("</table>\n\n")
 
     file.write("\n\n")
 
 
 def write_alphabet(file):
-    list_to_markdown_table(file, 'user.letter')
+    user_list_to_html_table(file, 'user.letter')
 
 
 def write_numbers(file):
-    list_to_markdown_table(file, 'user.number_key')
+    user_list_to_html_table(file, 'user.number_key')
 
 
 def write_modifiers(file):
-    list_to_markdown_table(file, 'user.modifier_key')
+    user_list_to_html_table(file, 'user.modifier_key')
 
 
 def write_special(file):
-    list_to_markdown_table(file, 'user.special_key')
+    user_list_to_html_table(file, 'user.special_key')
 
 
 def write_symbol(file):
-    list_to_markdown_table(file, 'user.symbol_key')
+    user_list_to_html_table(file, 'user.symbol_key')
 
 
 def write_arrow(file):
-    list_to_markdown_table(file, 'user.arrow_key')
+    user_list_to_html_table(file, 'user.arrow_key')
 
 
 def write_punctuation(file):
-    list_to_markdown_table(file, 'user.punctuation')
+    user_list_to_html_table(file, 'user.punctuation')
 
 
 def write_function(file):
-    list_to_markdown_table(file, 'user.function_key')
+    user_list_to_html_table(file, 'user.function_key')
 
 
 def write_formatters(file):
-    global linecount
-    writepagebreak(file)
-    file.write(f"<h2>formatters</h2> \n\n")
-    command_list = registry.lists['user.formatters'][0].items()
+    user_list_to_html_table(file, 'user.formatters')
 
 
-    # convert this to a two column table
-    file.write("<table>\n")
-    file.write("<tr><th>command</th><th>word</th></tr>\n")
-    for key, value in command_list:
-        file.write(f"<tr><td>{key}</td><td>{value}</td></tr>\n")
-    file.write("</table>\n\n")
 
-    linecount += 1
-
-
-def write_context_commands(file, commands):
-    global linecount
+def write_context_commands(key, file, commands):
+    global lines_written
     # write out each command and it's implementation
 
-    writepagebreak(file)
+    write_page_break_if_needed(file, len(commands))
+    pretty_print_context_name(file, key)
+
+    file.write("<table class='contexts'>\n")
+    file.write("<tr><th>Input</th><th>Result</th></tr>\n")
+
+    #sort the commands by the rule
+    commands = dict(sorted(commands.items()))
+    #sorted by item
+    # commands = {k: v for k, v in sorted(commands.items(), key=lambda item: item[1].target.code)}
+
+    previousRule= ""
+    rowCount = 0
 
     for key in commands:
+        rowCount += 1
         try:
             rule = commands[key].rule.rule
-            implementation = commands[key].target.code.replace("\n", "\n\t\t")
+            implementation = commands[key].target.code.replace("\n", "\n<br/>")
         except Exception:
             continue
-        # file.write("\n-**" + rule + "**  `" + implementation + "`\n")
-        # file.write( "> **"+ rule + "** `" + implementation + "` \n>\n")
-        ruleHtmlEscaped = escapeHtml(rule)
-        file.write("<p>rule: " +ruleHtmlEscaped + " , imp:" + escapeHtml(implementation).replace("/n",'<br>') + "</p>")
-        linecount += 1
 
+        ruleHtmlEscaped = escapeHtml(rule)
+
+        #        #.replace('/n', '<br>')
+
+        #emove any text following a hash # symbol if the length > 20 chqars
+        if len(implementation) > 20:
+          implementation = implementation.split('#')[0]
+        result = escapeHtml(implementation)
+
+        #if the rowCount is greater than 5 and the first 2 characters of the rule are the same as the first 2 characters of the previous rule
+        #then add a blank row
+        # if ((rowCount > 5 and rule[:2] != previousRule[:2]) or (rowCount > 7 and rule[:rowCount] != previousRule[:rowCount])):
+        if ((rowCount > 5 and rule[:rowCount] != previousRule[:rowCount])):
+
+            file.write("<tr class=blank><td>&nbsp;</td><td></td></tr>\n")
+            rowCount = 0
+        previousRule = rule
+        file.write(
+            f"<tr class=context><td>{ruleHtmlEscaped}</td><td>{result}</td></tr>\n")
+
+
+        lines_written += 1
+
+    file.write("</table>\n\n")
 
 def escapeHtml(htmltobe):
     return htmltobe.replace("<", "&lt;").replace(">", "&gt;")
@@ -121,21 +143,18 @@ def pretty_print_context_name(file, name):
         short_name = splits[index].replace("_", " ")
 
     if "mac" == short_name or "win" == short_name or "linux" == short_name:
-        index = index-1
+        index = index - 1
         short_name = splits[index].replace("_", " ")
 
-    global linecount
-    writepagebreak(file)
-    # file.write("<h2>" + "# " + os + " " + short_name + "</h2>")
-    file.write("<h2>"  + short_name + "</h2>")
+    global lines_written
+    file.write("<h2>" + short_name.upper() + "</h2>")
 
 
-def writepagebreak(file):
-    global linecount
-    if linecount > 20:
-        file.write('<p style="page-break-after: always;">&nbsp;</p>')
-        # file.write('<p style="page-break-before: always;">&nbsp;</p>')
-        linecount = 0
+def write_page_break_if_needed(file, size_of_next_list):
+    global lines_written
+    if lines_written+size_of_next_list > 40:
+        file.write('<p style="page-break-after: always;"><hr/></p>')
+        lines_written = 0
 
 
 mod = Module()
@@ -167,31 +186,38 @@ class user_actions:
     def cheatsheet():
         """Print out a sheet of talon commands"""
         # open file
-
+        logging.info(
+            f"generating cheat sheet in {os.path.dirname(os.path.realpath(__file__))}"
+        )
         this_dir = os.path.dirname(os.path.realpath(__file__))
         file_path = os.path.join(this_dir, 'cheat_sheet.html')
         file = open(file_path, "w")
         write_html_header(file)
-        file.write(f"<h1> Talon Cheat Sheet </h1>\n\n")
+        file.write(f"<h1 align=center>Talon Cheat Sheet</h1>\n\n")
+        file.write(f"<p align=center>Generated on: {datetime.now()}</p>\n\n")
+        # write_arrow(file)
+        # write_function(file)
+        # write_modifiers(file)
+        # write_numbers(file)
+        # write_special(file)
 
         write_alphabet(file)
-        # write_numbers(file)
-        # write_modifiers(file)
-        # write_special(file)
-        write_symbol(file)
-        # write_arrow(file)
-        write_punctuation(file)
-        # Is never on things write_function(file)
-
         write_formatters(file)
+        write_punctuation(file)
+        write_symbol(file)
 
         # print out all the commands in all of the contexts
 
-        list_of_contexts = registry.contexts.items()
-        for key, value in list_of_contexts:
-            #
+        list_of_contexts = dict(registry.contexts.items())
+        sorted_keys = sorted(list_of_contexts)
+
+        for key in sorted_keys:
+            value = list_of_contexts[key]
             commands = value.commands  # Get all the commands from a context
             if len(commands) > 0:
-                pretty_print_context_name(file, key)
-                write_context_commands(file, commands)
+
+                write_context_commands(key, file, commands)
+
+        file.write(f"<h1 align=center>End of Talon Cheat Sheet</h1>\n\n")
+        file.write("</body></html>")
         file.close()

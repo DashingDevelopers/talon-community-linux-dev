@@ -1,0 +1,21 @@
+alternative paste method
+in case anyone else is finding the actions.user.paste() problematic (too slow) on linux, you can use this replacement code in code/edit.py in the interim, which seems to be work fine based on testing (not sure if someone posted another workaround already):
+
+@mod.action_class
+class Actions:
+    def paste(text: str):
+        """Pastes text and preserves clipboard"""
+        #with clip.revert():
+        #    clip.set_text(text)
+        #    actions.edit.paste()
+        #    # sleep here so that clip.revert doesn't revert the clipboard too soon
+        #    actions.sleep("150ms")
+        # TODO: qt clipboard is bugged, do it manually
+        old = subprocess.check_output(['xclip', '-o', '-sel', 'clip'])
+        clip.set_text(text)
+        actions.edit.paste()
+        actions ("150ms")
+        clip.set_text(old.decode("utf-8"))
+
+
+
