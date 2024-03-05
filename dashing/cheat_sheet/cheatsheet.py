@@ -45,16 +45,15 @@ def user_list_to_html_table(file, list_name):
 
 
 
-def write_context_commands(key, file, commands):
+def write_context_commands(key, output_file, commands):
     global lines_written
     # write out each command and it's implementation
+    write_page_break_if_needed(output_file, len(commands))
+    pretty_print_context_name(output_file, key)
 
-    write_page_break_if_needed(file, len(commands))
-    pretty_print_context_name(file, key)
-
-    file.write("<table class='contexts'>\n")
-    file.write("<tr><th>Input</th><th>Result</th></tr>\n")
-
+    output_file.write("<table class='contexts'>\n")
+    output_file.write("<tr><th>Input</th><th>Result</th></tr>\n")
+    output_file.write("")
     #sort the commands by the rule
     commands = dict(sorted(commands.items()))
     #sorted by item
@@ -67,30 +66,29 @@ def write_context_commands(key, file, commands):
         rowCount += 1
         rows_written += 1
         try:
-            rule = commands[key].rule.rule
-            implementation = commands[key].target.code.replace("\n", "\n<br/>")
+            rule = escapeHtml(commands[key].rule.rule)
+            implementation = escapeHtml(commands[key].target.code).replace("\n", "<br />")
         except Exception:
             continue
 
-        ruleHtmlEscaped = escapeHtml(rule)
 
 
         #emove any text following a hash # symbol if the length > 20 chqars
         if len(implementation) > 20:
-          implementation = implementation.split('#')[0]
-        result = escapeHtml(implementation)
+           implementation = implementation.split('#')[0]
+
 
         if ((rowCount > 4 and rule[:rowCount] != previousRule[:rowCount]) and not rows_written==len(commands)):
-            file.write("<tr class=blank><td>&nbsp;</td><td></td></tr>\n")
+            output_file.write("<tr class=blank><td>&nbsp;</td><td></td></tr>\n")
             rowCount = 0
         previousRule = rule
-        file.write(
-            f"<tr class=context><td>{ruleHtmlEscaped}</td><td>{result}</td></tr>\n")
+        output_file.write(
+            f"<tr class=context><td>{rule}</td><td>{implementation}</td></tr>\n")
 
 
         lines_written += 1
 
-    file.write("</table>\n\n")
+    output_file.write("</table>\n\n")
 
 def escapeHtml(htmltobe):
     return htmltobe.replace("<", "&lt;").replace(">", "&gt;")
