@@ -10,18 +10,20 @@ lines_written = 0
 
 
 # repeat the above but in html format
-def user_list_to_html_table(file, list_name):
+def user_list_to_html_table(file, list_name,sort_by='key'):
     global lines_written
 
     command_list = registry.lists[list_name][0].items()
 
-    #sort the commands by the rule
-    command_list = sorted(command_list)
+    #sort the commands by the key
+    command_list = sort_command_list(command_list,sort_by)
+
+
 
     write_page_break_if_needed(file, len(command_list))
 
     commandGroup = list_name.replace('user.', '').upper()
-    #If the last character of Command Group does not equal s. Then add the character S.
+    # Append 'S' to Command Group if it doesn't already end with 'S'.
     if commandGroup[-1] != "S":
         commandGroup = commandGroup + "S"
     file.write(f"<h1>{commandGroup}</h1>\n\n")
@@ -43,7 +45,14 @@ def user_list_to_html_table(file, list_name):
 
     file.write("\n\n")
 
-
+def sort_command_list(command_list, sort_by='key'):
+    """Sorts the command list by key or value"""
+    if sort_by == 'key':
+        return sorted(command_list)
+    elif sort_by == 'value':
+        return sorted(command_list, key=lambda x: x[1])
+    else:
+        raise ValueError("sort_by parameter must be either 'key' or 'value'")
 
 def write_context_commands(key, output_file, commands):
     global lines_written
@@ -70,6 +79,8 @@ def write_context_commands(key, output_file, commands):
             implementation = escapeHtml(commands[key].target.code).replace("\n", "<br />")
         except Exception:
             continue
+
+
 
 
 
@@ -200,7 +211,7 @@ class user_actions:
 
 
 def write_alphabet(file):
-    user_list_to_html_table(file, 'user.letter')
+    user_list_to_html_table(file, 'user.letter', sort_by='value')
 
 
 def write_numbers(file):

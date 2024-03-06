@@ -386,6 +386,7 @@ class Actions:
             before, after = actions.user.dictation_peek(need_left, need_right)
             dictation_formatter.update_context(before)
             add_space_after = after is not None and needs_space_between(text, after)
+
         text = dictation_formatter.format(text, auto_cap)
         # Straighten curly quotes that were introduced to obtain proper
         # spacing. The formatter context still has the original curly quotes
