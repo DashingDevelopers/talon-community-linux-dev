@@ -53,7 +53,8 @@ settings():
 
     # Uncomment to insert text longer than 10 characters (customizable) by pasting from
     # the clipboard. This is often faster than typing.
-     user.paste_to_insert_threshold = 100
+    # Set to 999 to overcome a bug. In the IntelliJ co-pilot plugin. Where Pasting does not work for some reason.
+     user.paste_to_insert_threshold = 999
 
     # Uncomment to enable context-sensitive dictation. This determines how to format
     # (capitalize, space) dictation-mode speech by selecting & copying surrounding text
