@@ -6,7 +6,7 @@ settings():
     user.file_manager_auto_show_pickers = true
 
     # Set the number of command lines to display per help page
-    user.help_max_command_lines_per_page = 50
+    user.help_max_command_lines_per_page = 30
 
     # Set the number of contexts to display per help page
     user.help_max_contexts_per_page = 20
@@ -53,8 +53,7 @@ settings():
 
     # Uncomment to insert text longer than 10 characters (customizable) by pasting from
     # the clipboard. This is often faster than typing.
-    # Set to 999 to overcome a bug. In the IntelliJ co-pilot plugin. Where Pasting does not work for some reason.
-     user.paste_to_insert_threshold = 999
+     user.paste_to_insert_threshold = 4
 
     # Uncomment to enable context-sensitive dictation. This determines how to format
     # (capitalize, space) dictation-mode speech by selecting & copying surrounding text
