@@ -1,0 +1,157 @@
+
+# Error Handling
+@mod.action_class
+class Actions:
+    def dart_try_catch():
+        '''Insert a try-catch template'''
+        actions.insert("try {
+    
+} catch (e) {
+    
+}
+")
+
+# Generics
+    def dart_generic_class():
+        '''Insert a generic class template'''
+        actions.insert("class ClassName<T> {
+    
+}
+")
+
+    def dart_generic_function():
+        '''Insert a generic function template'''
+        actions.insert("T functionName<T>(T param) {
+    return param;
+}
+")
+
+# Class Manipulation
+    def dart_create_constructor(class_name: str):
+        '''Insert a constructor template for a class'''
+        actions.insert(f"{class_name}({class_name});
+")
+
+    def dart_create_getter_setter(property_name: str, property_type: str):
+        '''Insert getter and setter templates for a property'''
+        actions.insert(f"{property_type} get {property_name} => _{property_name};
+void set {property_name}({property_type} value) => _{property_name} = value;
+")
+
+# Advanced Error Handling
+@mod.action_class
+class Actions:
+    def dart_specific_try_catch(exception_name: str):
+        '''Insert a try-catch template for a specific exception'''
+        actions.insert(f"try {{\n    \n}} catch ({exception_name} e) {{\n    \n}}\n")
+
+# Detailed Asynchronous Programming
+    def dart_stream_controller_example():
+        '''Insert a StreamController example'''
+        actions.insert("StreamController<> controller = StreamController<>();\n")
+
+# Expanded Flutter Widget Support
+    def dart_custom_widget(widget_name: str):
+        '''Insert a template for a custom Flutter widget'''
+        actions.insert(f"class {widget_name} extends StatelessWidget {{\n    @override\n    Widget build(BuildContext context) {{\n        return Container();\n    }}\n}}\n")
+
+# Dart Packages and Imports
+    def dart_import_package(package_name: str):
+        '''Insert an import statement for a Dart package'''
+        actions.insert(f"import '{package_name}';\n")
+
+# State Management in Flutter
+@mod.action_class
+class Actions:
+    def dart_provider_state_management():
+        '''Insert a Provider state management example'''
+        actions.insert("ChangeNotifierProvider(create: (context) => MyModel(), child: MyWidget(),)\n")
+
+    def dart_bloc_state_management():
+        '''Insert a Bloc state management example'''
+        actions.insert("BlocProvider(create: (context) => MyBloc(), child: MyWidget(),)\n")
+
+# Networking with Dart
+    def dart_http_get_request():
+        '''Insert a Dart HTTP GET request example'''
+        actions.insert("http.get(Uri.parse('URL'));\n")
+
+    def dart_http_post_request():
+        '''Insert a Dart HTTP POST request example'''
+        actions.insert("http.post(Uri.parse('URL'), body: {'key': 'value'});\n")
+
+# Advanced UI Development in Flutter
+    def dart_flutter_animation():
+        '''Insert a Flutter animation widget example'''
+        actions.insert("AnimationController(duration: const Duration(seconds: 2), vsync: this);\n")
+
+    def dart_flutter_custom_painter():
+        '''Insert a custom painter widget example'''
+        actions.insert("class MyCustomPainter extends CustomPainter {\n    @override\n    void paint(Canvas canvas, Size size) {\n        // Drawing\n    }\n\n    @override\n    bool shouldRepaint(covariant CustomPainter oldDelegate) => false;\n}\n")
+
+# Testing in Dart and Flutter
+@mod.action_class
+class Actions:
+    def dart_test_case(test_name: str):
+        '''Insert a Dart test case template'''
+        actions.insert(f"test('{test_name}', () {{\n    // Test goes here\n}});\n")
+
+    def flutter_widget_test(widget_name: str):
+        '''Insert a Flutter widget test template'''
+        actions.insert(f"testWidgets('{widget_name} widget test', (WidgetTester tester) async {{\n    // Widget test goes here\n}});\n")
+
+# Dart Concurrency
+    def dart_future_example():
+        '''Enhance the future example with more details'''
+        actions.insert("Future<void> futureExample() async {
+    var result = await Future.delayed(Duration(seconds: 1), () => 'Future result');
+    print(result);
+}
+")
+
+    def dart_isolate_example():
+        '''Insert an example of using isolates in Dart'''
+        actions.insert("import 'dart:isolate';
+
+void isolateMain(SendPort sendPort) {
+    // Isolate work goes here
+}
+")
+
+# Platform-Specific Code
+    def dart_platform_channel_example():
+        '''Insert a platform channel example in Dart/Flutter'''
+        actions.insert("const platform = MethodChannel('com.example/app');
+
+Future<void> getNativeData() async {
+    final String data = await platform.invokeMethod('getData');
+    print(data);
+}
+")
+
+# Dependency Injection in Flutter with GetIt
+@mod.action_class
+class Actions:
+    def flutter_dependency_injection_setup():
+        '''Insert a GetIt setup example for Flutter'''
+        actions.insert("final getIt = GetIt.instance;\n\nvoid setupLocator() {\n    getIt.registerSingleton<MyService>(MyServiceImplementation());\n}\n")
+
+# Advanced State Management Techniques
+    def flutter_mobx_setup():
+        '''Insert a MobX setup example for Flutter'''
+        actions.insert("class Counter = _Counter with _$Counter;\n\nabstract class _Counter with Store {\n    @observable\n    int value = 0;\n\n    @action\n    void increment() {\n        value++;\n    }\n}\n")
+
+# Custom Animation and Graphics
+    def flutter_custom_animation():
+        '''Insert a custom animation setup example'''
+        actions.insert("class MyAnimationWidget extends StatefulWidget {\n    @override\n    _MyAnimationWidgetState createState() => _MyAnimationWidgetState();\n}\n\nclass _MyAnimationWidgetState extends State<MyAnimationWidget> with SingleTickerProviderStateMixin {\n    AnimationController _controller;\n\n    @override\n    void initState() {\n        super.initState();\n        _controller = AnimationController(vsync: this, duration: Duration(seconds: 1));\n    }\n\n    @override\n    Widget build(BuildContext context) {\n        return FadeTransition(opacity: _controller, child: Container(color: Colors.blue));\n    }\n}\n")
+
+# Utilizing Dart Extensions
+    def dart_extension_example():
+        '''Insert an example of using Dart extension methods'''
+        actions.insert("extension NumberParsing on String {\n    int parseInt() {\n        return int.parse(this);\n    }\n}\n")
+
+# Working with Streams and RxDart
+    def dart_streams_rx_dart_example():
+        '''Insert an example of using Streams and RxDart in Dart'''
+        actions.insert("final myObservable = Observable.just('Hello, world!');\n\nmyObservable.listen(print);\n")

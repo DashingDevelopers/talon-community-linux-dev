@@ -1,0 +1,68 @@
+
+code.language: dart
+-
+tag(): user.code_imperative
+tag(): user.code_object_oriented
+tag(): user.code_asynchronous
+
+# Variable declaration
+create variable (bool|int|double|String|var|dynamic) <user.text>:
+    insert("{word} ")
+    user.insert_cursor_here()
+
+# Function declaration
+create function <user.text>:
+    user.dart_create_function(text)
+
+# Class declaration
+create class <user.text>:
+    user.dart_create_class(text)
+
+# Async function
+create async function <user.text>:
+    user.dart_async_function(text)
+
+# Stream function
+create stream function <user.text>:
+    user.dart_stream_function(text)
+
+# Existing Dart commands
+...
+
+# Flutter widget creation
+create stateless widget <user.text>:
+    user.dart_create_stateless_widget(text)
+
+create stateful widget <user.text>:
+    user.dart_create_stateful_widget(text)
+
+# Mixins and extensions
+add mixin <user.text> to <user.text>:
+    user.dart_add_mixin(text)
+
+create extension <user.text> on <user.text>:
+    user.dart_create_extension(text)
+
+# Control Structures
+insert if statement:
+    user.dart_if_statement()
+
+insert for loop:
+    user.dart_for_loop()
+
+insert while loop:
+    user.dart_while_loop()
+
+# Collections
+insert list:
+    user.dart_create_list()
+
+insert map:
+    user.dart_create_map()
+
+# Asynchronous Programming
+insert future example:
+    user.dart_future_example()
+
+insert stream example:
+    user.dart_stream_example()

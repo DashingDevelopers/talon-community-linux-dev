@@ -12,6 +12,7 @@ language_extensions = {
     # 'cplusplus': 'cpp hpp',
     "csharp": "cs",
     "css": "css",
+    "dart": "dart",
     # 'elisp': 'el',
     # 'elm': 'elm',
     "gdb": "gdb",

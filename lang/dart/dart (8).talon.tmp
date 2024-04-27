@@ -1,0 +1,93 @@
+
+# Error Handling
+insert try catch:
+    user.dart_try_catch()
+
+# Generics
+insert generic class:
+    user.dart_generic_class()
+
+insert generic function:
+    user.dart_generic_function()
+
+# Class Manipulation
+insert constructor <user.text>:
+    user.dart_create_constructor(text)
+
+insert getter setter <user.text> <user.text>:
+    user.dart_create_getter_setter(text)
+
+# Advanced Error Handling
+insert specific try catch <user.text>:
+    user.dart_specific_try_catch(text)
+
+# Detailed Asynchronous Programming
+insert stream controller example:
+    user.dart_stream_controller_example()
+
+# Expanded Flutter Widget Support
+insert custom widget <user.text>:
+    user.dart_custom_widget(text)
+
+# Dart Packages and Imports
+insert import package <user.text>:
+    user.dart_import_package(text)
+
+# State Management in Flutter
+insert provider state management:
+    user.dart_provider_state_management()
+
+insert bloc state management:
+    user.dart_bloc_state_management()
+
+# Networking with Dart
+insert HTTP GET request:
+    user.dart_http_get_request()
+
+insert HTTP POST request:
+    user.dart_http_post_request()
+
+# Advanced UI Development in Flutter
+insert flutter animation:
+    user.dart_flutter_animation()
+
+insert flutter custom painter:
+    user.dart_flutter_custom_painter()
+
+# Testing in Dart and Flutter
+insert dart test case <user.text>:
+    user.dart_test_case(text)
+
+insert flutter widget test <user.text>:
+    user.flutter_widget_test(text)
+
+# Dart Concurrency
+insert future example:
+    user.dart_future_example()
+
+insert dart isolate example:
+    user.dart_isolate_example()
+
+# Platform-Specific Code
+insert platform channel example:
+    user.dart_platform_channel_example()
+
+# Dependency Injection in Flutter with GetIt
+insert flutter dependency injection setup:
+    user.flutter_dependency_injection_setup()
+
+# Advanced State Management Techniques
+insert flutter mobx setup:
+    user.flutter_mobx_setup()
+
+# Custom Animation and Graphics
+insert flutter custom animation:
+    user.flutter_custom_animation()
+
+# Utilizing Dart Extensions
+insert dart extension example:
+    user.dart_extension_example()
+
+# Working with Streams and RxDart
+insert dart streams rx dart example:
+    user.dart_streams_rx_dart_example()

@@ -53,6 +53,7 @@ _file_extensions_defaults = {
     "dot java": ".java",
     "dot class": ".class",
     "dot log": ".log",
+    "dot dart": ".dart",
 }
 
 file_extensions = get_list_from_csv(

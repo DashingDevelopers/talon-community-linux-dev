@@ -1,0 +1,36 @@
+
+from talon import Context, Module, actions, settings
+
+ctx = Context()
+mod = Module()
+ctx.matches = r"""
+code.language: dart
+"""
+
+# Dart Primitive Types
+dart_primitive_types = {
+    "bool": "bool",
+    "int": "int",
+    "double": "double",
+    "String": "String",
+    "dynamic": "dynamic",
+    "var": "var",
+}
+
+@mod.action_class
+class Actions:
+    def dart_create_function(function_name: str, return_type: str = "void"):
+        '''Create a Dart function with the specified name and return type'''
+        actions.insert(f"{return_type} {function_name}() {{\n    \n}}\n")
+
+    def dart_create_class(class_name: str):
+        '''Create a Dart class with the specified name'''
+        actions.insert(f"class {class_name} {{\n    \n}}\n")
+
+    def dart_async_function(function_name: str, return_type: str = "Future<void>"):
+        '''Create an async Dart function with the specified name and return type'''
+        actions.insert(f"{return_type} {function_name}() async {{\n    \n}}\n")
+
+    def dart_stream_function(function_name: str, stream_type: str = "Stream<void>"):
+        '''Create a Dart function returning a stream with the specified name and stream type'''
+        actions.insert(f"{stream_type} {function_name}() {{\n    \n}}\n")

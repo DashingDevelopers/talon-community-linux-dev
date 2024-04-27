@@ -1,0 +1,57 @@
+
+from talon import Context, Module, actions, settings
+
+ctx = Context()
+mod = Module()
+ctx.matches = r"""
+code.language: dart
+"""
+
+# Dart Primitive Types
+dart_primitive_types = {
+    "bool": "bool",
+    "int": "int",
+    "double": "double",
+    "String": "String",
+    "dynamic": "dynamic",
+    "var": "var",
+}
+
+@mod.action_class
+class Actions:
+    def dart_create_function(function_name: str, return_type: str = "void"):
+        '''Create a Dart function with the specified name and return type'''
+        actions.insert(f"{return_type} {function_name}() {{\n    \n}}\n")
+
+    def dart_create_class(class_name: str):
+        '''Create a Dart class with the specified name'''
+        actions.insert(f"class {class_name} {{\n    \n}}\n")
+
+    def dart_async_function(function_name: str, return_type: str = "Future<void>"):
+        '''Create an async Dart function with the specified name and return type'''
+        actions.insert(f"{return_type} {function_name}() async {{\n    \n}}\n")
+
+    def dart_stream_function(function_name: str, stream_type: str = "Stream<void>"):
+        '''Create a Dart function returning a stream with the specified name and stream type'''
+        actions.insert(f"{stream_type} {function_name}() {{\n    \n}}\n")
+
+@mod.action_class
+class Actions:
+    # Existing Dart actions
+    ...
+    
+    def dart_create_stateless_widget(widget_name: str):
+        '''Create a StatelessWidget in Dart'''
+        actions.insert(f"class {widget_name} extends StatelessWidget {{\n    @override\n    Widget build(BuildContext context) {{\n        return Container();\n    }}\n}}\n")
+
+    def dart_create_stateful_widget(widget_name: str):
+        '''Create a StatefulWidget in Dart'''
+        actions.insert(f"class {widget_name} extends StatefulWidget {{\n    @override\n    _{widget_name}State createState() => _{widget_name}State();\n}}\n\nclass _{widget_name}State extends State<{widget_name}> {{\n    @override\n    Widget build(BuildContext context) {{\n        return Container();\n    }}\n}}\n")
+
+    def dart_add_mixin(class_name: str, mixin_name: str):
+        '''Add a mixin to a Dart class'''
+        actions.insert(f"class {class_name} with {mixin_name} {{\n    \n}}\n")
+
+    def dart_create_extension(extension_name: str, on_type: str):
+        '''Create an extension in Dart'''
+        actions.insert(f"extension {extension_name} on {on_type} {{\n    \n}}\n")

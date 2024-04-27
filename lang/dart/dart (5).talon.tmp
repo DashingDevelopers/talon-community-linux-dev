@@ -1,0 +1,34 @@
+
+# Error Handling
+insert try catch:
+    user.dart_try_catch()
+
+# Generics
+insert generic class:
+    user.dart_generic_class()
+
+insert generic function:
+    user.dart_generic_function()
+
+# Class Manipulation
+insert constructor <user.text>:
+    user.dart_create_constructor(text)
+
+insert getter setter <user.text> <user.text>:
+    user.dart_create_getter_setter(text)
+
+# Advanced Error Handling
+insert specific try catch <user.text>:
+    user.dart_specific_try_catch(text)
+
+# Detailed Asynchronous Programming
+insert stream controller example:
+    user.dart_stream_controller_example()
+
+# Expanded Flutter Widget Support
+insert custom widget <user.text>:
+    user.dart_custom_widget(text)
+
+# Dart Packages and Imports
+insert import package <user.text>:
+    user.dart_import_package(text)
