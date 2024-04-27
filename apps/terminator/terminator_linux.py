@@ -7,6 +7,10 @@ os: linux
 and app.exe: terminator
 os: linux
 and app.name: Terminator
+os: linux
+and app.name: x-terminal-emulator
+os: linux
+and app.name: X-terminal-emulator
 """
 
 # Context matching
