@@ -3,12 +3,12 @@ from talon import Context
 
 mod = Module()
 ctx = Context()
-ctx.action_class('main')
-# ctx.matches = r"""
-# os: windows
-# os: linux
-# os: mac
-# """
+
+ctx.matches = r"""
+os: windows
+os: linux
+os: mac
+"""
 
 
 @mod.action_class
