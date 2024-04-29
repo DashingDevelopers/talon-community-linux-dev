@@ -6,9 +6,7 @@ tag(): user.multiple_cursors
 tag(): user.splits
 tag(): user.tabs
 # multiple_cursors.py support end
-#  pasting doesn't work in things like get commit dialogues
-settings():
-     user.paste_to_insert_threshold = 499
+
 # Auto complete
 complete: user.idea("action CodeCompletion")
 perfect: user.idea("action CodeCompletion,action CodeCompletion")
