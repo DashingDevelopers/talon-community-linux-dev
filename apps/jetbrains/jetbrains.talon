@@ -6,6 +6,9 @@ tag(): user.multiple_cursors
 tag(): user.splits
 tag(): user.tabs
 # multiple_cursors.py support end
+#  pasting doesn't work in things like get commit dialogues
+settings():
+     user.paste_to_insert_threshold = -1
 
 # Auto complete
 complete: user.idea("action CodeCompletion")
@@ -257,3 +260,5 @@ go camel right: user.camel_right()
 
 # requires plug-in: black-pycharm
 blacken: user.idea("action BLACKReformatCode")
+
+copilot chat: user.chrome_mod("shift-c")

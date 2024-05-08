@@ -1,6 +1,7 @@
 from talon import Module, settings
 from talon import Context
-
+import logging
+#|from logging_tree import printout#
 mod = Module()
 ctx = Context()
 
@@ -16,9 +17,9 @@ class user_actions:
 
     def clipboard_enable():
         """Enables always clipboard by setting paste threshold to 0"""
-
+        logging.info("Enabling clipboard")
         print("threshold was: ", settings.get("user.paste_to_insert_threshold"))
-
+        #1printout()
         ctx.settings["user.paste_to_insert_threshold"] = 0
 
         print("threshold now: ", settings.get("user.paste_to_insert_threshold"))
