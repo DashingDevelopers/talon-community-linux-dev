@@ -1,4 +1,5 @@
 import os
+import time
 from datetime import datetime
 from typing import Optional
 
@@ -23,6 +24,13 @@ mod.setting(
 
 @mod.action_class
 class Actions:
+    def screenshot_interactive():
+        """Takes a screenshot of the entire screen and saves it to the pictures folder.
+Optional screen number can be given to use screen other than main."""
+
+        time.sleep(5)
+        actions.key('printscr')
+
     def screenshot(screen_number: Optional[int] = None):
         """Takes a screenshot of the entire screen and saves it to the pictures folder.
         Optional screen number can be given to use screen other than main."""
