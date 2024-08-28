@@ -10,7 +10,7 @@ settings():
     # imgui.dark_mode = true
 
     # If `true`, automatically show the picker GUI when the file manager has focus
-    user.file_manager_auto_show_pickers = true
+    user.file_manager_auto_show_pickers = false
 
     # Set the number of command lines to display per help page
     user.help_max_command_lines_per_page = 50
